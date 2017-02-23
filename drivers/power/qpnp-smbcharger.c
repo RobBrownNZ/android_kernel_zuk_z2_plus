@@ -54,6 +54,9 @@
 //#ifdef CONFIG_PRODUCT_Z2_PLUS
 //#define SUPPORT_ONLY_5V_CHARGER
 //#endif
+#ifdef SUPPORT_ONLY_5V_CHARGER
+#undef SUPPORT_ONLY_5V_CHARGER
+#endif
 
 #ifdef SUPPORT_CALL_POWER_OP
 extern int g_call_status;
@@ -8926,6 +8929,8 @@ static int smbchg_probe(struct spmi_device *spmi)
 #ifdef SUPPORT_QPNP_USBIN_MONITOR
 	struct qpnp_vadc_chip *vadc_dev_usb;
 #endif
+
+    printk("Charger init, 5V restriction removed\n");
 
 	usb_psy = power_supply_get_by_name("usb");
 	if (!usb_psy) {
